@@ -46,6 +46,8 @@
     let speed = 0;
     let mySound = new Audio('http://www.wou.edu/~tbafarat06/1001%20Sound%20Effects/Miscellaneous/Ping%20Pong%20Paddle%2004.wav');
     let sound = new Audio('http://www.wou.edu/~tbafarat06/1001%20Sound%20Effects/Miscellaneous/Ping%20Pong%20Ball%20on%20Table%2004.wav');
+    let failSound = new Audio('http://cd.textfiles.com/cdaction/cdaction47b/BEAT2000/SOUNDS/SFX/BONK.WAV');
+    let winSound = new Audio('http://cd.textfiles.com/cdaction/cdaction47b/BEAT2000/SOUNDS/SFX/PING.WAV');
 
     document.addEventListener("keydown", keyDownHandler, false);
     document.addEventListener("keyup", keyUpHandler, false);
@@ -117,13 +119,13 @@
                         ctx.fillStyle = "yellow";
                         ctx.fill();
                         const playPromise2 = sound.play();
-                if (playPromise2){
-                    playPromise2.catch((e) => {
-                        if (e.name === 'NotAllowedError' || e.name === 'NotSupportedError') {
-                            console.log(e.name);
-                        }
-                    })
-                }
+                        if (playPromise2){
+                            playPromise2.catch((e) => {
+                                if (e.name === 'NotAllowedError' || e.name === 'NotSupportedError') {
+                                    console.log(e.name);
+                                }
+                            })
+                        }   
                         if (dy > 0 ) {
                             dy = -dy;
                             if (dy > -15 && dy < 15) {
@@ -138,6 +140,14 @@
                         b.status = 0;
                         score++;
                         if (score == brickColumnCount*brickRowCount) {
+                            const playPromise4 = winSound.play();
+                            if (playPromise4){
+                                playPromise4.catch((e) => {
+                                    if (e.name === 'NotAllowedError' || e.name === 'NotSupportedError') {
+                                        console.log(e.name);
+                                    }
+                                })
+                            }   
                             alert("YOU WIN, YOUR SCORE IS : " + score + ". CONGRAT !!!");
                             document.location.reload();
                         }
@@ -200,6 +210,14 @@
                     })
                 }
             } else {
+                const playPromise3 = failSound.play();
+                        if (playPromise3){
+                            playPromise3.catch((e) => {
+                                if (e.name === 'NotAllowedError' || e.name === 'NotSupportedError') {
+                                    console.log(e.name);
+                                }
+                            })
+                        }   
                 ctx.fillStyle = "red";
                 ctx.fill()
                 lives--
