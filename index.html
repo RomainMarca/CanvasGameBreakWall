@@ -27,7 +27,7 @@
     let paddleX = (canvas.width-paddleWidth)/2;
     let rigthPressed = false;
     let leftPressed = false;
-    let brickRowCount = 4;
+    let brickRowCount = 6;
     let brickColumnCount = 6;
     let brickWidth = 75;
     let brickHeight = 20;
@@ -44,7 +44,6 @@
     let score = 0;
     let lives = 3;
     let speed = 0;
-    let level = 1;
 
     document.addEventListener("keydown", keyDownHandler, false);
     document.addEventListener("keyup", keyUpHandler, false);
@@ -89,16 +88,7 @@
         ctx.closePath;
     }
 
-    function drawBricks() {
-        switch (level) {
-            case 1 : brickRowCount + 1;
-            break;
-            case 2 : brickRowCount + 2;
-            break;
-            case 3 : brickRowCount + 3;
-            break;
-        }
-      
+    function drawBricks() {      
         for (let c=0; c<brickColumnCount; c++) {
             for (let r=0; r<brickRowCount; r++) {
                 if (bricks[c][r].status == 1) {
@@ -167,13 +157,7 @@
         }
         ctx.font = "16px Arial";
         ctx.fillStyle = "#0095DD";
-        ctx.fillText("Speed : "+ speed, canvas.width/2 + 30, 20);
-    }
-
-    function drawLevel() {
-        ctx.font = "16px Arial";
-        ctx.fillStyle = "#0095DD";
-        ctx.fillText("Level : "+ level, canvas.width/2 - 100, 20);
+        ctx.fillText("Speed : "+ speed, canvas.width/2, 20);
     }
 
     function draw() {
@@ -185,7 +169,6 @@
         drawScore();
         drawLives();
         drawSpeed();
-        drawLevel();
 
         //rebound + falling ball
         if (y + dy < ballRadius) {
