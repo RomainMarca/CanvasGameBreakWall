@@ -44,6 +44,8 @@
     let score = 0;
     let lives = 3;
     let speed = 0;
+    let mySound = new Audio('http://www.wou.edu/~tbafarat06/1001%20Sound%20Effects/Miscellaneous/Ping%20Pong%20Paddle%2004.wav');
+    let sound = new Audio('http://www.wou.edu/~tbafarat06/1001%20Sound%20Effects/Miscellaneous/Ping%20Pong%20Ball%20on%20Table%2004.wav');
 
     document.addEventListener("keydown", keyDownHandler, false);
     document.addEventListener("keyup", keyUpHandler, false);
@@ -114,6 +116,14 @@
                     if (x >b.x && x < b.x+brickWidth && y > b.y && y< b.y+brickHeight)  {
                         ctx.fillStyle = "yellow";
                         ctx.fill();
+                        const playPromise2 = sound.play();
+                if (playPromise2){
+                    playPromise2.catch((e) => {
+                        if (e.name === 'NotAllowedError' || e.name === 'NotSupportedError') {
+                            console.log(e.name);
+                        }
+                    })
+                }
                         if (dy > 0 ) {
                             dy = -dy;
                             if (dy > -15 && dy < 15) {
@@ -181,6 +191,14 @@
                 if (dy > -15 && dy < 15) {
                     dy -= 1;
                 } 
+                const playPromise = mySound.play();
+                if (playPromise){
+                    playPromise.catch((e) => {
+                        if (e.name === 'NotAllowedError' || e.name === 'NotSupportedError') {
+                            console.log(e.name);
+                        }
+                    })
+                }
             } else {
                 ctx.fillStyle = "red";
                 ctx.fill()
